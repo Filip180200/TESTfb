@@ -6,7 +6,7 @@ WORKDIR /app/frontend
 COPY frontend/package*.json ./
 RUN npm install
 COPY frontend/ .
-RUN npm run build
+RUN npm run build-prod
 
 # Backend Build Stage
 FROM node:16-alpine AS backend-build
@@ -20,7 +20,7 @@ FROM node:16-alpine
 WORKDIR /app
 
 # Copy frontend build
-COPY --from=frontend-build /app/frontend/build ./frontend/build
+COPY --from=frontend-build /app/frontend/dist ./frontend/dist
 
 # Copy backend files
 COPY --from=backend-build /app/backend ./backend
