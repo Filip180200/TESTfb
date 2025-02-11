@@ -1,0 +1,16 @@
+.postBottom {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.postBottom > p {
+  font-size: 15px !important;
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.twitterPostTopText {
+  word-wrap: break-word;
+}

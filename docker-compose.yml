@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  backend:
+    restart: always
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    ports:
+      - "8081:8081"
+  frontend:
+    restart: always
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    volumes:
+      - /etc/letsencrypt/:/etc/letsencrypt/
+    ports:
+      - "80:80"
+      - "443:443"
+    links:
+      - "backend:be"

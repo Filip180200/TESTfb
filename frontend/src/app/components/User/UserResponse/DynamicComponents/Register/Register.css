@@ -1,0 +1,22 @@
+.registerTop {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.registerTop > h6 {
+  text-align: center;
+}
+
+.registerTopAvatar {
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+  width: 300px !important;
+  height: 300px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
