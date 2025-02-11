@@ -1,38 +1,39 @@
-import * as express from "express";
-import cors from "cors";
-import { umzugUp } from './migrations';
-import db from "./clients/database-client";
+import express from 'express';
+import cors from 'cors';
+import mysql from 'mysql2/promise';
+import bcrypt from "bcryptjs";
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+import path from 'path';
 
-import auth from './routes/auth-routes';
-import authUser from './routes/user-auth-routes';
+import auth from './routes/auth-routes.js';
+import authUser from './routes/user-auth-routes.js';
 
-import template from './routes/template-routes';
-import register from './routes/register-routes';
-import finish from './routes/finish-routes';
-import info from './routes/info-routes';
-import question from './routes/question-routes';
-import media from './routes/media-routes';
-import language from './routes/language-routes';
-import page from './routes/page-routes';
-import metrics from './routes/admin-metrics-routes';
-import adminUserPost from './routes/admin-userpost-routes';
+import template from './routes/template-routes.js';
+import register from './routes/register-routes.js';
+import finish from './routes/finish-routes.js';
+import info from './routes/info-routes.js';
+import question from './routes/question-routes.js';
+import media from './routes/media-routes.js';
+import language from './routes/language-routes.js';
+import page from './routes/page-routes.js';
+import metrics from './routes/admin-metrics-routes.js';
+import adminUserPost from './routes/admin-userpost-routes.js';
 
-import userRegister from './routes/user-register-routes';
-import userFinish from './routes/user-finish-routes';
-import userInfo from './routes/user-info-routes';
-import userFacebook from './routes/facebook-routes';
-import userQuesion from './routes/user-question-routes';
-import userAnswer from './routes/user-answer-routes';
-import userMain from './routes/user-main-routes';
-import userTracking from './routes/user-tracking-routes';
-import { databaseConfigurations, adminCredConfigurations } from './utils';
+import userRegister from './routes/user-register-routes.js';
+import userFinish from './routes/user-finish-routes.js';
+import userInfo from './routes/user-info-routes.js';
+import userFacebook from './routes/facebook-routes.js';
+import userQuesion from './routes/user-question-routes.js';
+import userAnswer from './routes/user-answer-routes.js';
+import userMain from './routes/user-main-routes.js';
+import userTracking from './routes/user-tracking-routes.js';
+import { databaseConfigurations, adminCredConfigurations } from './utils.js';
 
-const mysql = require('mysql2/promise');
-
-const bcrypt = require("bcryptjs");
-const { verifyToken, isAdmin } = require("./middleware/authJwt");
-const { verifyUserToken, isUser } = require("./middleware/userAuthJwt");
-const fs = require('fs')
+import { verifyToken, isAdmin } from "./middleware/authJwt.js";
+import { verifyUserToken, isUser } from "./middleware/userAuthJwt.js";
+import db from "./clients/database-client.js";
+import { umzugUp } from './migrations.js';
 
 const checkConfigFileExist = () => {
   const pathToConfigFile = __dirname + '/config-' + process.env.NODE_ENV.toString() + '.json';
