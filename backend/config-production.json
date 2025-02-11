@@ -4,8 +4,8 @@
     "username": "",
     "password": "",
     "host": "",
-    "port": "3306",
-    "dialect": "mysql"
+    "port": "5432",
+    "dialect": "postgres"
   },
   "adminCredentials": [
     {

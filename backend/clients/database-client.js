@@ -1,4 +1,4 @@
-import Sequelize from 'sequelize';
+import { Sequelize } from 'sequelize';
 
 import Admin from '../models/00-admin';
 import Template from '../models/01-template';
@@ -20,26 +20,28 @@ import UserPostTracking from '../models/16-user-post-tracking';
 import UserGlobalTracking from '../models/17-user-global-tracking';
 import { databaseConfigurations } from '../utils';
 
-const config = databaseConfigurations();
-
-// MYSQL_HOST is only injected through docker-compose.dev file when running in local development mode
-const sequelize = new Sequelize({
-  database: config.name,
-  host: config.host,
-  username: config.username,
-  password: config.password,
-  port: config.port,
-  pool: {
-    acquire: 30000,
-    idle: 10000,
-    max: 25,
-    min: 0,
-  },
-  dialect: config.dialect,
-  // timezone: '-05:00', // utc, but let the original time be in Universal Coordinated Time
-  // logging: false,
-  // timezone: "+00:00" // when returning
-});
+const sequelize = new Sequelize(
+  process.env.DB_NAME || databaseConfigurations.database.name,
+  process.env.DB_USERNAME || databaseConfigurations.database.username,
+  process.env.DB_PASSWORD || databaseConfigurations.database.password,
+  {
+    host: process.env.DB_HOST || databaseConfigurations.database.host,
+    port: process.env.DB_PORT || databaseConfigurations.database.port,
+    dialect: 'postgres',
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false // Important for Supabase
+      }
+    },
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    }
+  }
+);
 
 const db = {};
 const AdminModel = Admin(sequelize, Sequelize);
