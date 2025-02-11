@@ -1,4 +1,18 @@
-import multer from "multer";
+import multer from 'multer';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, path.join(__dirname, '../uploads/'));
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
 
 const filter = (req, file, cb) => {
   if (file.mimetype.startsWith("image") || file.mimetype.startsWith("video")) {
@@ -16,6 +30,9 @@ const filterSingleImage = (req, file, cb) => {
   }
 };
 
-export const uploadImage = multer({ fileFilter: filterSingleImage });
+const upload = multer({ storage: storage, fileFilter: filter });
+const uploadImage = multer({ storage: storage, fileFilter: filterSingleImage });
 
-export const uploadFiles = multer({ fileFilter: filter });
+export const uploadFiles = upload.array('files', 10);
+export const uploadImage = uploadImage.single('image');
+export default upload;

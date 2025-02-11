@@ -1,8 +1,8 @@
 import db from "../clients/database-client";
-import { secretConfigurations } from '../utils';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import { secretConfigurations } from '../utils.js';
 
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
 const Admin = db.Admin;
 const secret = secretConfigurations();
 

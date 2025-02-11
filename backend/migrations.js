@@ -1,4 +1,5 @@
-import { Umzug, FilesystemMigrationStorage } from 'umzug';
+import pkg from 'umzug';
+const { Umzug, SequelizeStorage } = pkg;
 import { Sequelize } from 'sequelize';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -16,7 +17,7 @@ const umzug = new Umzug({
         glob: ['migrations/*.js', { cwd: __dirname }],
     },
     context: sequelize.getQueryInterface(),
-    storage: new FilesystemMigrationStorage(),
+    storage: new SequelizeStorage({ sequelize }),
     logger: console,
 });
 
