@@ -1,5 +1,16 @@
-const environment = process.env.NODE_ENV;
-const config = require(__dirname + '/config-' + environment.toString() + '.json');
+import { readFile } from 'fs/promises';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const environment = process.env.NODE_ENV || 'production';
+const configPath = path.join(__dirname, `config-${environment}.json`);
+
+// Read config file manually
+const configContent = await readFile(configPath, 'utf8');
+const config = JSON.parse(configContent);
 
 export const databaseConfigurations = () => {
   if (!config.database) console.log('Please provide a database object');
