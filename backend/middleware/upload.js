@@ -1,4 +1,4 @@
-const multer = require("multer");
+import multer from "multer";
 
 const filter = (req, file, cb) => {
   if (file.mimetype.startsWith("image") || file.mimetype.startsWith("video")) {
