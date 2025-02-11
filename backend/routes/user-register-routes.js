@@ -1,8 +1,8 @@
-import userRegister from "../controllers/user-register-controller";
-import { uploadFiles } from "../middleware/upload";
+import express from 'express';
+import userRegister from "../controllers/user-register-controller.js";
+import { uploadFiles } from "../middleware/upload.js";
 
-var express = require('express')
-var router = express.Router()
+const router = express.Router();
 
 router.get("/:pageId", userRegister.getRegisterDetails);
 

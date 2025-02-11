@@ -1,21 +1,43 @@
-import { Umzug, SequelizeStorage } from 'umzug';
-import db from './clients/database-client';
-const path = require("path");
+import { Umzug, FilesystemMigrationStorage } from 'umzug';
+import { Sequelize } from 'sequelize';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const umzug = new Umzug({
-  storage: new SequelizeStorage({ sequelize: db.sequelize }),
-  migrations: {
-      glob: path.resolve(__dirname, './migrations') + '/*.js',
-  },
-  context: db.sequelize.getQueryInterface(),
-  // We currently do not make use of the logging feature; therefore switching it off
-  // Accepted values: console
-  logger: undefined,
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialect: 'postgres',
+    logging: false
 });
 
-export const umzugUp = async () => await umzug.up();
+const umzug = new Umzug({
+    migrations: {
+        glob: ['migrations/*.js', { cwd: __dirname }],
+    },
+    context: sequelize.getQueryInterface(),
+    storage: new FilesystemMigrationStorage(),
+    logger: console,
+});
 
-// make sure to remove this command before production,
-// we donot want to have some access to drop everything
-// Following can be umcommented and ran to drop all tables manually
-// export const umzugDown = async () => await umzug.down({ to: 0 });
+export async function runMigrations() {
+    try {
+        const migrations = await umzug.up();
+        console.log('Migrations completed', migrations);
+    } catch (error) {
+        console.error('Migration failed', error);
+        throw error;
+    }
+}
+
+export async function downMigrations() {
+    try {
+        const migrations = await umzug.down();
+        console.log('Migrations rolled back', migrations);
+    } catch (error) {
+        console.error('Migration rollback failed', error);
+        throw error;
+    }
+}
+
+export default { runMigrations, downMigrations };

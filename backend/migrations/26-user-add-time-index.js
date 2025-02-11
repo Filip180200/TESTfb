@@ -1,9 +1,13 @@
-const { Sequelize } = require('sequelize');
+import { Sequelize } from 'sequelize';
 
-export async function up({ context: queryInterface }) {
-  await queryInterface.addIndex('User', ['startedAt']);
-}
+export default {
+    up: async (queryInterface, Sequelize) => {
+        await queryInterface.addIndex('users', ['createdAt'], {
+            name: 'users_created_at_index'
+        });
+    },
 
-export async function down({ context: queryInterface }) {
-  await queryInterface.removeIndex('User', ['startedAt']);
-}
+    down: async (queryInterface, Sequelize) => {
+        await queryInterface.removeIndex('users', 'users_created_at_index');
+    }
+};
