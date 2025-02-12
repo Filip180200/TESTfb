@@ -1,0 +1,26 @@
+{
+  "database": {
+    "name": "database-fb",
+    "username": "admin",
+    "password": "Secure123!",
+    "host": "database-fb.chouowmiqzp1.eu-central-1.rds.amazonaws.com",
+    "port": "3306",
+    "dialect": "mysql"
+  },
+  "adminCredentials": [
+    {
+      "username": "admin",
+      "password": "admin"
+    },
+    {
+      "username": "",
+      "password": ""
+    },
+    {
+      "username": "",
+      "password": ""
+    }
+  ],
+  "secret": "827ade3254c72ae811201b418766d9a8802e91b029d95cc9de2f0169274aedd7",
+  "secretUser": "8e3ffa1aed9af0763c8e3b253340e3b8b81720e5ff64ffbf2130092d0e8d1c31"
+}

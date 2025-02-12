@@ -1,0 +1,41 @@
+.twitterSidebarOption {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 12px;
+  width: fit-content;
+  color: var(--twitter-sidebar-color);
+}
+
+.twitterSidebarOption:hover {
+  background-color: var(--twitter-hover-main);
+  border-radius: 30px;
+  transition: color 100ms ease-out;
+}
+
+.twSidebarIcon {
+  height: 24px;
+  width: 24px;
+  stroke: var(--twitter-sidebar-color);
+}
+
+.twSidebarText {
+  margin-left: 20px;
+  margin-right: 16px;
+  color: rgb(15, 20, 25);
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.twSideItem {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.twitterSidebarOption--active {
+  color: var(--twitter-color);
+}
+
+.twSidebarText--active {
+  font-weight: 600;
+}

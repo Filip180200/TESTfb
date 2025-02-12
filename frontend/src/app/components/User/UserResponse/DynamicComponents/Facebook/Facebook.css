@@ -1,0 +1,26 @@
+.facebookMainBody {
+  /* display: flex; */
+  /* width: auto; */
+  /* height: 100vh; */
+  justify-content: center;
+  /* margin-left: 30%;
+  margin-right: 30%; */
+  /* background-color: #F2F3F5; */
+  margin-bottom: 60px; /* facebook posts */
+  width: "100%";
+  /* margin-top: theme.spacing(1), */
+}
+
+/* .facebookCard {
+  background-color: #f1f2f6;
+  box-shadow: none !important;
+}
+
+.customCSS {
+  background-color: #f1f2f6;
+} */
+
+.fbNextBotton {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
